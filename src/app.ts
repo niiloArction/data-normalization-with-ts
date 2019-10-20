@@ -1,6 +1,7 @@
 // Read API tokens from file.
 const apiTokens = require('../api-tokens.json')
 import { WorldTradingData } from "./brokers/wtc";
+import { AlphaVantage } from "./brokers/alphavantage";
 
 /**
  * fetches real-time data from a group of online broker APIs and normalizes the data into a single format.
@@ -13,7 +14,8 @@ import { WorldTradingData } from "./brokers/wtc";
 // This enables the application to always work with whatever data format it prefers, regardless of its origin.
 
 const tradingDataBrokers = [
-    new WorldTradingData( apiTokens["worldtradingdata.com"] )
+    // new WorldTradingData( apiTokens["worldtradingdata.com"] )
+    new AlphaVantage( apiTokens["alphavantage.co"] )
 ]
 
 tradingDataBrokers.forEach(( broker ) => {

@@ -75,8 +75,8 @@ export class WorldTradingData implements TradingDataProvider {
 }
 /**
  * Interface that defines the format used by worldtradingdata.com when returning INTRADAY data.
- *
- * This was written according to their API documentation at https://www.worldtradingdata.com/documentation#stock-and-index-intraday
+ * 
+ * This was written according to the actual values returned by worldtradingdata.com API.
  */
 interface WorldTradingDataIntradayData {
     /**
