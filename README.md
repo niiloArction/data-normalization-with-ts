@@ -1,44 +1,31 @@
-# LightningChart JS Streaming data showcase application
+# Data normalization with *TypeScript*
 
-Web-application that streams random data in great quantity across multiple channels, and renders it using LightningChart JS.
+With the introduction and recent popularity of *Node.js* and backend *JavaScript* applications, there’s more data represented as JS-objects than ever. The modifiable, not-predefined nature of JS-objects makes coding a breeze, but it can later lead to hardly understandable core pieces of logic and applications that are difficult to adjust to changes in data source / usage.
 
-More information about LightningChart<sup>&#174;</sup> JS can be found from our website, https://www.arction.com/lightningchart-js/.
+One way of preventing this from happening is to work with *TypeScript*, instead. In simple terms, *TS* is just *JS* with type definitions.
 
-## Description
+This is a web-application that fetches real-time data from a group of online broker APIs and normalizes the data into a single format. This data is then transformed again to a suitable format that can be used to display it with a third-party library. The goal of this example is to show that transforming data is not scary as long as there is type safety (*TypeScript*).
 
-Scrolling of large quantitities of random data in real-time, across multiple channels.
+## The important parts
 
-Rendered frames-per-second (FPS) and incoming data points-per-second (PPS) are displayed on Chart.
+(go through core sections of code. Separate into files !)
 
-## Getting Started
+## This looks way too complicated...
 
-The application is hosted at:
+(explain the benefits - change in 3rd party lib, adding more brokers, etc...)
 
-https://arction.github.io/lcjs-showcase-streamingData/
+## The finished application
+
+The application is hosted via *GitHub* at:
+
+https://niiloArction.github.io/data-normalization-with-ts/
 
 To run the application locally with hot reload:
 
+1. Clone the project
 1. Install Node.JS
 2. Run `npm install`
 3. Run `npm start`
 4. Open browser and navigate to http://localhost:8080
 
-## Support
-
-If you notice an error in the example code, please open an issue on [GitHub][0].
-
-Official [API documentation][1] can be found on [Arction][2] website.
-
-If the docs and other materials do not solve your problem as well as implementation help is needed, ask on [StackOverflow][3] (tagged lightningchart).
-
-If you think you found a bug in the LightningChart JavaScript library, please contact support@arction.com.
-
-Direct developer email support can be purchased through a [Support Plan][4] or by contacting sales@arction.com.
-
-© Arction Ltd 2009-2019. All rights reserved.
-
-[0]: https://github.com/Arction/lcjs-showcase-streamingData/issues
-[1]: https://www.arction.com/lightningchart-js-api-documentation
-[2]: https://www.arction.com
-[3]: https://stackoverflow.com/questions/tagged/lightningchart
-[4]: https://www.arction.com/support-services/
+Note, that you'll need to get API tokens for the used data-brokers from their websites and fill them in **api-tokens.json** file.
