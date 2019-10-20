@@ -1,4 +1,5 @@
-import { TradingDataProvider, TradingData, TradingDataItem } from "../internal/trading";
+import { TradingDataProvider } from "../internal/provider"
+import { TradingData, TradingDataItem } from "../internal/data"
 
 /**
  * Implementation of a trading data broker that utilizes alphavantage.co online API.
@@ -56,6 +57,7 @@ export class AlphaVantage implements TradingDataProvider {
      * @return          Same data in internal format.
      */
     private readonly normalizeDataToInternalFormat = ( data: AlphaVantageIntradayData15Min ): TradingData => {
+        const origin = "alphavantage.co"
         const stockName: string = data["Meta Data"]["2. Symbol"]
         let values: TradingDataItem[]
 
@@ -63,6 +65,7 @@ export class AlphaVantage implements TradingDataProvider {
         const valueKeys = Object.keys( data["Time Series (15min)"] )
         values = valueKeys.map(( key ) => {
             const value = data["Time Series (15min)"][ key ]
+
             return { 
                 // Property key is UTC formatted date.
                 dateTime: new Date( key ),
@@ -74,7 +77,10 @@ export class AlphaVantage implements TradingDataProvider {
             }
         })
 
-        return { stockName, values }
+        // Sort values to time-ascending order (oldest price first).
+        values = values.sort(( a, b ) => a.dateTime.getTime() - b.dateTime.getTime())
+
+        return { origin, stockName, values }
     }
 
 }

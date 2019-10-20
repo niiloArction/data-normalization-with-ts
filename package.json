@@ -1,7 +1,7 @@
 {
   "name": "data-normalization-with-ts",
   "version": "1.0.0",
-  "description": "Example of how TypeScript can be utilized for more type-safe applications dealing with trading (or any online) data.",
+  "description": "Example of how TypeScript can be utilized for more type-safe and flexible applications dealing with online data and 3rd party libraries.",
   "main": "main.bundle.js",
   "scripts": {
     "start": "webpack-dev-server",

@@ -1,4 +1,5 @@
-import { TradingDataProvider, TradingData, TradingDataItem } from "../internal/trading";
+import { TradingDataProvider } from "../internal/provider";
+import { TradingData, TradingDataItem } from "../internal/data";
 
 /**
  * Implementation of a trading data broker that utilizes worldtradingdata.com online API.
@@ -32,7 +33,7 @@ export class WorldTradingData implements TradingDataProvider {
         /**
          * Number of days data is returned for.
          */
-        const range: string = '1'
+        const range: string = '4'
 
         return new Promise(( resolve, reject ) => {
             // Make fetch request to worldtradingdata.com
@@ -51,6 +52,7 @@ export class WorldTradingData implements TradingDataProvider {
      * @return          Same data in internal format.
      */
     private readonly normalizeDataToInternalFormat = ( data: WorldTradingDataIntradayData ): TradingData => {
+        const origin = "worldtradingdata.com"
         const stockName: string = data.symbol
         let values: TradingDataItem[]
 
@@ -69,7 +71,7 @@ export class WorldTradingData implements TradingDataProvider {
             }
         })
 
-        return { stockName, values }
+        return { origin, stockName, values }
     }
 
 }
