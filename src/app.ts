@@ -14,24 +14,23 @@ import { LCJS } from "./display/lcjs";
 // The format is always normalized to an internal format (src/internal/trading.ts)
 // This enables the application to always work with whatever data format it prefers, regardless of its origin.
 
-// List all used trading data brokers.
+// List of all used trading data brokers.
 const tradingDataBrokers = [
     new WorldTradingData( apiTokens["worldtradingdata.com"] ),
     new AlphaVantage( apiTokens["alphavantage.co"] )
 ]
 
+// Fetch trading data from all brokers. Use different stock, so the data is different. 
 const searchSymbols = [ 'AAPL', 'GOOG' ]
-
-// Fetch trading data from all brokers.
 Promise.all( tradingDataBrokers.map(( broker, i ) =>
     broker.getTradingData( searchSymbols[i] ))
 )
     .then(( allData ) => {
-        // Display data using 3rd party library.
-        // Again, there is a translation in data format in between.
-        // Similarly as we can have any number of different data brokers, we could freely switch between the rendering library.
-
+        // Display data using a 3rd party library abstraction interface.
         const displayLibrary = new LCJS()
-        displayLibrary.showTradingData( 'chart-container', 'Trading chart with multiple data brokers', ...allData )
-
+        displayLibrary.showTradingData(
+            'chart-container',
+            'Trading chart with multiple data brokers',
+            ...allData
+        )
     })

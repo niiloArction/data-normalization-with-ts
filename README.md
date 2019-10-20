@@ -1,4 +1,4 @@
-# Data normalization with *TypeScript*
+# Web-service typing and normalization with *TypeScript*
 
 With the introduction and recent popularity of *Node.js* and backend *JavaScript* applications, there’s more data represented as JS-objects than ever. The modifiable, not-predefined nature of JS-objects makes coding a breeze, but it can later lead to hardly understandable core pieces of logic and applications that are difficult to adjust to changes in data source / usage.
 
@@ -8,11 +8,29 @@ This is a web-application that fetches real-time data from a group of online bro
 
 ## The important parts
 
-(go through core sections of code. Separate into files !)
+The application is formed of three levels:
+- Application logic (app.ts)
+- Data brokers (brokers/)
+- Data display (display/)
+
+These levels abstract away all implementation specific complications, so for example, when looking at application code there is no need to think of any fetch / data transformation logic etc. It is all done under the hood in the data broker implementation.
+
+### Data broker implementation
+
+Let's look at the implementation of worldtradingdata.com data broker (brokers/wtc.ts). At the bottom of the file there is an interface that was written according to the data format that the specific API returns (*WorldTradingDataIntradayData*).
+The implementation of *getTradingData()* then casts the return type to this interface, and afterwards moves on to normalizing it to the internal format, which is returned to the application code.
 
 ## This looks way too complicated...
 
-(explain the benefits - change in 3rd party lib, adding more brokers, etc...)
+There's a couple benefits to this approach, whose importance totally depends on the application, but here they are:
+- **Clear folder structure, and progressive logic**.
+  Normalized or not, separating the data broker from the application is very standard stuff, and really helps with organization and debugging.
+
+- **Easy to manage different data sources and components**.
+  The main magic that these data source interfaces enable is that we can handle them all the same way. Take a peek at app.ts - the spooky, scary **Application Logic** is like 10 lines of code. Ten more data sources? That's ten more lines of code (or 0 without *Lint* hehe).
+
+- **Straightfoward adjustment to any 3rd party and internal changes**.
+  Let's say your data broker publishes a new version to their API, which has really bad backwards compatibility. With this kind of approach we could, for example, split the existing data broker implementation to two classes to match the respective versions, keep the old logic as is and update the normalization code for the new version.
 
 ## The finished application
 
