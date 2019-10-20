@@ -1,6 +1,6 @@
 import { TradingChart } from "../internal/display";
 import { TradingData } from "../internal/data";
-import { lightningChart, AxisTickStrategies, OHLCFigures, OHLCFigure, DataPatterns } from "@arction/lcjs"
+import { lightningChart, AxisTickStrategies, OHLCFigures, OHLCFigure, DataPatterns, VisibleTicks } from "@arction/lcjs"
 
 /**
  * Implementation of a trading chart utilizing *LightningChart JS*.
@@ -40,9 +40,13 @@ export class LCJS implements TradingChart {
         allData.forEach(( data, i ) => {
             // Own Y Axis for each series, because price ranges might be very different.
             const yAxis = chart.addAxisY()
+                .setTickStyle(( tickStyle: VisibleTicks ) => tickStyle
+                    .setGridStrokeLength( 0 )
+                )
 
             const ohlcSeries = chart.addOHLCSeries<OHLCFigure>({
                 yAxis,
+                // Select different Figure style for each consequent series.
                 positiveFigure: ((i % 2 === 0)? OHLCFigures.Candlestick : OHLCFigures.Bar)
             })
                 .setName( `${data.stockName} - ${data.origin}` )
